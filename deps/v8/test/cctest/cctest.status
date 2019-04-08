@@ -93,9 +93,6 @@
   'test-cpu-profiler/TracingCpuProfiler': [SKIP],
   'test-sampler/LibSamplerCollectSample': [SKIP],
 
-  # BUG(7702). Flaky data race and other test failures.
-  'test-cpu-profiler/MultipleProfilers': [SKIP],
-
   # BUG(7202). The test is flaky.
   'test-cpu-profiler/NativeFrameStackTrace': [SKIP],
 
