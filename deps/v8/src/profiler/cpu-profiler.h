@@ -177,7 +177,7 @@ class ProfilerEventsProcessor : public base::Thread {
   base::Atomic32 running_;
   const base::TimeDelta period_;  // Samples & code events processing period.
   LockedQueue<CodeEventsContainer> events_buffer_;
-  static const size_t kTickSampleBufferSize = 1 * MB;
+  static const size_t kTickSampleBufferSize = 512 * KB;
   static const size_t kTickSampleQueueLength =
       kTickSampleBufferSize / sizeof(TickSampleEventRecord);
   SamplingCircularQueue<TickSampleEventRecord,
