@@ -638,7 +638,7 @@ exceptional logic violation that should never occur. These are raised typically
 by the `assert` module.
 
 <a id="ERR_ASYNCLOCAL_NO_RECURSION"></a>
-### ERR_ASYNCLOCAL_NO_RECURSION
+### `ERR_ASYNCLOCAL_NO_RECURSION`
 
 An attempt was made to set an `AsyncLocal` value from `onChanged` callback.
 

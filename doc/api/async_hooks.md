@@ -780,7 +780,7 @@ created afterwards. To avoid this copy on write semantic simply store an
 `Object` or `Map` and update this.
 
 Setting a new value directly from `onChanged` callback is not allowed an will
-throw an Error.
+throw an `ERR_ASYNCLOCAL_NO_RECURSION` exception.
 
 [`after` callback]: #async_hooks_after_asyncid
 [`before` callback]: #async_hooks_before_asyncid
