@@ -7,25 +7,21 @@ const assert = require('assert');
 const { AsyncLocal, AsyncResource } = require('async_hooks');
 
 {
-  common.expectsError(
-    () => new AsyncLocal(15),
-    {
-      code: 'ERR_INVALID_ARG_TYPE',
-      type: TypeError,
-      message: 'The "options" argument must be of type Object. ' +
-               'Received type number'
-    }
-  );
+  let errMsg = common.expectsError({
+    code: 'ERR_INVALID_ARG_TYPE',
+    name: 'TypeError',
+    message: 'The "options" argument must be of type object. ' +
+             'Received type number (15)'
+  });
+  assert.throws(() => new AsyncLocal(15), errMsg);
 
-  common.expectsError(
-    () => new AsyncLocal({ onChangedCb: {} }),
-    {
-      code: 'ERR_INVALID_ARG_TYPE',
-      type: TypeError,
-      message: 'The "options.onChangedCb" property must be of type ' +
-               'function. Received type object'
-    }
-  );
+  errMsg = common.expectsError({
+    code: 'ERR_INVALID_ARG_TYPE',
+    name: 'TypeError',
+    message: 'The "options.onChangedCb" property must be of type ' +
+             'function. Received an instance of Object'
+  });
+  assert.throws(() => new AsyncLocal({ onChangedCb: {} }), errMsg);
 }
 
 {
@@ -238,14 +234,13 @@ const { AsyncLocal, AsyncResource } = require('async_hooks');
   let asyncLocal;
 
   function onChangedCb() {
-    common.expectsError(
-      () => asyncLocal.value = 'bar',
-      {
-        code: 'ERR_ASYNCLOCAL_NO_RECURSION',
-        type: Error,
-        message: 'Setting value from onChanged callback is not allowed'
-      }
-    );
+    const errMsg = common.expectsError({
+      code: 'ERR_ASYNCLOCAL_NO_RECURSION',
+      name: 'Error',
+      message: 'Setting value from onChanged callback is not allowed'
+    });
+
+    assert.throws(() => asyncLocal.value = 'bar', errMsg);
   }
 
   asyncLocal = new AsyncLocal({
